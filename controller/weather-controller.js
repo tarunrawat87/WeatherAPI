@@ -67,7 +67,7 @@ class WeatherController{
     let i=2;
     while(i<=dayValue/2){
 
-        if(dayValue%2==0){
+        if(dayValue%i==0){
             isPrime=false;
             break;
         }
