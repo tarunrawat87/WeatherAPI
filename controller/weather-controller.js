@@ -1,5 +1,7 @@
 var DataSource=require('../ds/data-source')
-
+var LoggerUTIl=require('../utils/Logger');
+var ClusterInfo=require('../utils/cluster-info');
+var logger;
 
 class WeatherController{
 
@@ -7,18 +9,21 @@ class WeatherController{
    getWeatherInfo(query){
      //add invalid data handler
      let me=this;
-            
+     logger=LoggerUTIl.getLogger();       
     return new Promise((resolve,reject)=>{
         try{
 
             if(!query.date){
+                logger.warn('cluster :'+ClusterInfo.getClusterInfo()+' data param is missing ');
+ 
                 reject("date param is missing");
             }
 
             let date=new Date(query.date);
 
             if(me.isValidDate(date)==false){
-                console.log("invalid date");
+                logger.warn('cluster :'+ClusterInfo.getClusterInfo()+' invalid date format ');
+ 
                 reject("invalid date format");
 
                 return;
@@ -37,6 +42,9 @@ class WeatherController{
                 }
 
               } else{
+
+                logger.warn('cluster :'+ClusterInfo.getClusterInfo()+' invalid params ');
+ 
                   reject("invalid params");
               }     
              let milliseconds=me.convertDateToMilliseconds(query.date);
@@ -44,16 +52,21 @@ class WeatherController{
                 DataSource.getDataFromDb(mongoquery).then((res)=>{
                     resolve(res);
                 }).catch((err)=>{
+                    logger.error('cluster :'+ClusterInfo.getClusterInfo()+' error while fetching data from mongo '+err);
                     reject("internal server error");
                    console.log(err); 
                 })
 
             }else{
+                logger.info('cluster :'+ClusterInfo.getClusterInfo()+' date is not prime ');
+ 
                 reject("date is not Prime");
             }
    
         }catch(err){
             console.log(err);
+            logger.error('cluster :'+ClusterInfo.getClusterInfo()+' error in weather controller '+err);
+            
             reject("internal server error");
         }
        
@@ -97,6 +110,7 @@ let projection={"$project":{
          },"city":1   
 }}
 query.push(projection);
+logger.info('cluster :'+ClusterInfo.getClusterInfo()+' querying mongo ='+JSON.stringify(query));
 return query;
 }
 

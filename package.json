@@ -13,7 +13,9 @@
     "memory-cache": "^0.2.0",
     "mongo": "^0.1.0",
     "nodemon": "^1.19.4",
-    "request": "^2.88.0"
+    "request": "^2.88.0",
+    "winston": "^3.2.1",
+    "winston-mongodb": "^5.0.0"
   },
   "devDependencies": {},
   "scripts": {
