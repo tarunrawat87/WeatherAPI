@@ -3,5 +3,4 @@
 "DB":"weather",
 "COL_NAME":"weather_info",
 "PORT":"3000"
-
 }
