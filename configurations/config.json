@@ -1,0 +1,7 @@
+{
+"MONGO_URL":"mongodb://localhost:27017/weather",
+"DB":"weather",
+"COL_NAME":"weather_info",
+"PORT":"3000"
+
+}
