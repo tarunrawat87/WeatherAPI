@@ -12,7 +12,7 @@ let db=MongoUtil.getDb();
 logger=LoggerUTIL.getLogger();
 
 return new Promise((resolve,reject)=>{
-    logger.info('cluster :',ClusterInfo.getClusterInfo()+' quering mongo.. ');
+    logger.info('cluster :'+ClusterInfo.getClusterInfo()+' quering mongo.. ');
  
 db.collection(EnvProvider.getConfig("COL_NAME")).aggregate(query).toArray((err,data)=>{
  

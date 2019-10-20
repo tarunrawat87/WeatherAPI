@@ -16,7 +16,7 @@ class WeatherController{
             if(!query.date){
                 logger.warn('cluster :'+ClusterInfo.getClusterInfo()+' data param is missing ');
  
-                reject("date param is missing");
+                reject({"msg":"date param is missing","status":400});
             }
 
             let date=new Date(query.date);
@@ -24,7 +24,7 @@ class WeatherController{
             if(me.isValidDate(date)==false){
                 logger.warn('cluster :'+ClusterInfo.getClusterInfo()+' invalid date format ');
  
-                reject("invalid date format");
+                reject({"msg":"invalid date format","status":400});
 
                 return;
             }    
@@ -45,7 +45,8 @@ class WeatherController{
 
                 logger.warn('cluster :'+ClusterInfo.getClusterInfo()+' invalid params ');
  
-                  reject("invalid params");
+                reject({"msg":"invalid params","status":400});
+
               }     
              let milliseconds=me.convertDateToMilliseconds(query.date);
              let mongoquery=this.prepareMongoQuery(key,value,milliseconds);      
@@ -53,21 +54,23 @@ class WeatherController{
                     resolve(res);
                 }).catch((err)=>{
                     logger.error('cluster :'+ClusterInfo.getClusterInfo()+' error while fetching data from mongo '+err);
-                    reject("internal server error");
+                    reject({"msg":"internal server error","status":500});
                    console.log(err); 
                 })
 
             }else{
                 logger.info('cluster :'+ClusterInfo.getClusterInfo()+' date is not prime ');
  
-                reject("date is not Prime");
+                reject({"msg":"date is not Prime","status":400});
+              
             }
    
         }catch(err){
             console.log(err);
             logger.error('cluster :'+ClusterInfo.getClusterInfo()+' error in weather controller '+err);
             
-            reject("internal server error");
+            reject({"msg":"internal server error","status":500});
+              
         }
        
     });

@@ -53,8 +53,10 @@ app.use('/',WeatherRoute);
 
 //universal error handler
 app.use((err,req,res,next)=>{
+  res.setHeader('Content-Type', 'application/json');  
 logger.error('cluster :'+ClusterInfo.getClusterInfo()+'encontured err',err);    
 res.status(500).send({"ok":-1,"errMessg":"internal server error"});
+next();
 })
 
 //if one of instance goes down
@@ -63,3 +65,8 @@ cluster.on('exit', (worker) => {
     cluster.fork()
  logger.info('cluster :'+ClusterInfo.getClusterInfo()+' creating a new instance again');   
 });
+
+process.on('uncaughtException',(err)=>{
+  logger.error('cluster :'+ClusterInfo.getClusterInfo()+'encontured err',err);    
+  
+})
