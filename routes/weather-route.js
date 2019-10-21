@@ -16,7 +16,7 @@ var query=req.body.query;
 if(!query){
     logger.warn('cluster :'+ClusterInfo.getClusterInfo()+' params were undefined or null ');
 
-    res.status('500').send({"ok":-1,"errMsg":"No params send or Incorrect params send"});
+    res.status('400').send({"ok":-1,"errMsg":"No params send or Incorrect params send"});
 return;
 }
 logger.info('cluster :'+ClusterInfo.getClusterInfo()+' recieved request query = '+query);
