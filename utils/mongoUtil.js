@@ -1,5 +1,7 @@
 var MongoClient = require('mongodb').MongoClient;
 var EnvProvider = require('../utils/env-provider');
+
+//This is the Wrapper class for MOngoConnection
 class MongoUtil {
     constructor() {
         this.db = null;

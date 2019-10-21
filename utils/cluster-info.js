@@ -1,6 +1,6 @@
 var cluster=require('cluster');
 
-
+//This class Provide info about cluster
 class ClusterInfo{
 
 getClusterInfo(){

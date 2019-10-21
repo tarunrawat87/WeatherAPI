@@ -1,5 +1,5 @@
 
-
+//This is class which provides Env variables to app
 class EnvProvider{
 constructor(){
 this.keyValues=require('../configurations/config.json');    

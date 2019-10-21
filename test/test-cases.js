@@ -1,19 +1,25 @@
-
 const chai = require("chai");
 const chaiHttp = require("chai-http");
 
-const { expect } = chai;
+const {
+  expect
+} = chai;
 chai.use(chaiHttp);
 describe("Server!", () => {
-  
+
   it("Testing /find Endpoint #1 with valid data", done => {
     chai
       .request("http://localhost:3000")
       .post("/find")
-      .send({"query":{"date":"2017-03-01","city_name":"Ujjain"}})
+      .send({
+        "query": {
+          "date": "2017-03-01",
+          "city_name": "Ujjain"
+        }
+      })
       .end((err, res) => {
         expect(res).to.have.status(200);
-        expect(res.body).to.be.a('Object');   
+        expect(res.body).to.be.a('Object');
         done();
       });
   });
@@ -21,10 +27,15 @@ describe("Server!", () => {
     chai
       .request("http://localhost:3000")
       .post("/find")
-      .send({"query":{"date":"2017-03-12","city_name":"Ujjain"}})
+      .send({
+        "query": {
+          "date": "2017-03-12",
+          "city_name": "Ujjain"
+        }
+      })
       .end((err, res) => {
         expect(res.statusCode).to.equal(400);
-       // expect(res.body).to.be.a('Object');   
+        // expect(res.body).to.be.a('Object');   
         done();
       });
   });
@@ -32,9 +43,9 @@ describe("Server!", () => {
     chai
       .request("http://localhost:3000")
       .post("/find")
-     .end((err, res) => {
+      .end((err, res) => {
         expect(res.statusCode).to.equal(400);
-          
+
         done();
       });
   });
@@ -42,10 +53,15 @@ describe("Server!", () => {
     chai
       .request("http://localhost:3000")
       .post("/find")
-      .send({"query":{"date":"2017-33-12","city_name":"Ujjain"}})
-     .end((err, res) => {
+      .send({
+        "query": {
+          "date": "2017-33-12",
+          "city_name": "Ujjain"
+        }
+      })
+      .end((err, res) => {
         expect(res.statusCode).to.equal(400);
-          
+
         done();
       });
   });

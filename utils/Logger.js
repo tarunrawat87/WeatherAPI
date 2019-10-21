@@ -5,11 +5,12 @@ var tsFormat = () => (new Date()).toLocaleTimeString();
 
   console.log(MongoUtil);
 
-
+//Custom Logger using Wiston ,
 class Logger{
 constructor(){
 this.logger=null;    
 }
+//descibing diff levels for Logger
     init(){
      this.logger = winston.createLogger({
             transports: [
